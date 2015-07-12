@@ -116,7 +116,8 @@ def call_me(fn):
 global _pref 
 _pref = None
 def record_pref(answer):
-    global _pref = answer
+    global _pref 
+    _pref = answer
     return True
 
 def need_asking():
