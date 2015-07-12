@@ -1,3 +1,4 @@
+#pytest
 from __future__ import absolute_import
 from sempervirens import sempervirens as sv
 
