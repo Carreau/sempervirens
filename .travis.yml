@@ -1,0 +1,10 @@
+language: python
+python:
+  - "3.4"
+# command to install dependencies
+before_install:
+  - pip install pytest flit
+install:
+  - flit install --symlink
+# command to run tests
+script: py.test
