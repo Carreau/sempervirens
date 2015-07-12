@@ -22,7 +22,7 @@ class ConsentHandler(APIHandler):
         self.finish(sv.consent(consent))
 
 def load_jupyter_server_extension(nbapp):
-    nbapp.log.critical('Sempervirens Extension loaded')
+    nbapp.log.info('Sempervirens Extension loaded')
 
     webapp = nbapp.web_app
     base_url = webapp.settings['base_url']
