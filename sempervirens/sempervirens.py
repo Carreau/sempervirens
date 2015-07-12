@@ -113,7 +113,7 @@ def call_me(fn):
     _callfns.append(fn)
     return True
 
-_pref = None
+global _pref = None
 def record_pref(answer):
     _pref = answer
     return True
