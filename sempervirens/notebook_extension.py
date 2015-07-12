@@ -10,9 +10,10 @@ class ConsentHandler(APIHandler):
 
     @web.authenticated
     @json_errors
-    def get(self, name):
+    def get(self):
         self.finish(json.dumps({
-            'name': sv.has_accepted(), 
+            'need_asking': sv.need_asking(), 
+            'has_accepted': sv.has_accepted(),
             'short_text': sv.short_text()
             }))
 
@@ -27,5 +28,6 @@ def load_jupyter_server_extension(nbapp):
     webapp = nbapp.web_app
     base_url = webapp.settings['base_url']
     webapp.add_handlers(".*$", [
-        (ujoin(base_url, r"/Sempervirens/consent"), ConsentHandler),
+        (ujoin(base_url, r"/sempervirens/consent"), ConsentHandler),
     ])
+
