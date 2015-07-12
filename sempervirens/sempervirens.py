@@ -121,7 +121,7 @@ def record_pref(answer):
 def need_asking():
     return _pref is None
 
-def has_accepted(version):
+def has_accepted():
     return _pref is True
 
 def short_text():
