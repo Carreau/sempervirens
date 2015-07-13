@@ -127,7 +127,7 @@ def has_accepted():
     return _pref is True
 
 def short_text():
-    return "Aren't you sure you don't want not to accept data collection ?"
+    return "Can we collect anonymous data on how you are using libraries in order to improves then in the future ?"
 
 _mem = {}
 def increment(project, key, value, count=1):

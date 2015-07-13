@@ -15,6 +15,18 @@ define(['jquery', 'base/js/dialog', 'base/js/namespace'],function($, dialog, IPy
 //            // setTimeout( function(){....}, 2000)
 //        }
 //    }
+//
+    function set_consent(value){
+        var settings = {
+                url : '/sempervirens/consent',
+                processData : false,
+                type : "PUT",
+                data: JSON.stringify({'consent':value}),
+                dataType: "json",
+                contentType: 'application/json',
+        };
+        $.ajax(settings)
+    }
 
     function _on_load(){
 
@@ -29,11 +41,14 @@ define(['jquery', 'base/js/dialog', 'base/js/namespace'],function($, dialog, IPy
             )
             dialog.modal({
                     body: div ,
-                    title: 'SciPy 2015',
-                    buttons: {'Ok':{class:'btn-primary',
-                                    click: function(){}
+                    title: 'Anaonymous data contribution',
+                    buttons: {
+                              'Ask me later':{},
+                              'No':{click: function(){set_consent(false)}},
+                              'Ok':{class:'btn-primary',
+                                    click: function(){set_consent(true)}
                                 },
-                              'Nop':{}
+
                         },
                     notebook:IPython.notebook,
                     keyboard_manager: IPython.notebook.keyboard_manager,
@@ -46,14 +61,10 @@ define(['jquery', 'base/js/dialog', 'base/js/namespace'],function($, dialog, IPy
                 type : "GET",
                 dataType: "json",
                 contentType: 'application/json',
-            };
-            $.ajax(settings).
-                done(function(data){console.log(data); show_dialog(data)})
+        };
+        $.ajax(settings)
+          .done(show_dialog)
 
-//        var internal_name = IPython.keyboard_manager.actions.register(clear_all_cells_restart, 'clear-and-restart' , 'scipy-2015')
-//        IPython.keyboard_manager.command_shortcuts.remove_shortcut('0,0')
-//        IPython.keyboard_manager.command_shortcuts.add_shortcut('0,0,0', internal_name)
-//        IPython.toolbar.add_buttons_group([internal_name,'ipython.restart-kernel'])
 
     }
     

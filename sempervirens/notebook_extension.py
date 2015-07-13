@@ -19,8 +19,11 @@ class ConsentHandler(APIHandler):
 
     @web.authenticated
     @json_errors
-    def put(self, consent):
-        self.finish(sv.consent(consent))
+    def put(self):
+        data = self.get_json_body()
+        self.log.warn(data)
+        sv.record_pref(data['consent'])
+        self.finish()
 
 def load_jupyter_server_extension(nbapp):
     nbapp.log.info('Sempervirens Extension loaded')
