@@ -51,7 +51,7 @@ define(['jquery', 'base/js/dialog', 'base/js/namespace'],function($, dialog, IPy
 
                         },
                     notebook:IPython.notebook,
-                    keyboard_manager: IPython.notebook.keyboard_manager,
+                    keyboard_manager: (IPython.notebook||{}).keyboard_manager,
                 })
         }
 
