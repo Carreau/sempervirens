@@ -41,7 +41,7 @@ define(['jquery', 'base/js/dialog', 'base/js/namespace'],function($, dialog, IPy
             )
             dialog.modal({
                     body: div ,
-                    title: 'Anaonymous data contribution',
+                    title: 'Anonymous data contribution',
                     buttons: {
                               'Ask me later':{},
                               'No':{click: function(){set_consent(false)}},
