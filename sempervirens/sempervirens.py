@@ -70,7 +70,8 @@ class OTP(object):
         if DISABLE_ENVVAR in os.environ:
             return
 
-        user_data_path = appdirs.user_data_dir()
+        #user_data_path = appdirs.user_data_dir()
+        user_data_path = '~/.sv'
         if not os.path.isdir(user_data_path):
             return
 
@@ -108,6 +109,8 @@ class OTP(object):
         if not os.path.exists(self.data_dir):
             pass
 
+_session = OTP()
+
 _callfns = []
 def call_me(fn):
     _callfns.append(fn)
@@ -126,13 +129,57 @@ def need_asking():
 def has_accepted():
     return _pref is True
 
-def short_text():
-    return "Can we collect anonymous data on how you are using libraries in order to improves then in the future ?"
+def more_info_link():
+    return ''
 
-_mem = {}
+def long_text():
+    return """
+    In order to provide performant and easy to use libraries, that Sempervierens project can collect information about what
+    the version of the software you will use, as well as some limited statistics about modules, function class and types used. 
+
+    This allow each library authors to improve the specific part of the libraries that are suffer from performance or usage issues.
+
+    You can opt-in, or out of this usage collection at any moment, and can find
+    more information, as well as aggregated statistics on our website: 
+
+    You can of course also find on our website how to keep local data to analyse your own usage of libraries.
+
+    If you have any concern, you can contact us at the following address. 
+    """
+
+def short_text():
+    return "Do you allow kernel's libraries to collect anonymous data about their usage and performance ?"
+
 def increment(project, key, value, count=1):
     # Need to define what project/key/value are
-    return True
+    # most likely project is project name, like 'numpy'
+    # key is a specific fucntion you track something about, most likely __qualname__
+    # value is what you track ? like number of imports ?
+    # should 'values' takes a limitted and consistent number of possible value like
+    # import, call, error ?
+
+    """
+
+    The `count` parameter can be use in performance critical loops if you do not want
+    to perform the increment at every loop. 
+
+    ```
+    for data in user_data():
+        transform(data)
+
+    increment("mymod", "transform", "call", count=len(user_data))
+    ```
+
+    examples:
+
+        increment("numpy", "__version__", __version__)
+        increment("numpy", "numpy.hitogram", "call")
+        increment("matplotlib", "matplotlib.finance", "import")
+
+    """
+
+    _session[project][key][value] += 1
+
 
 
 # Snapshotting is tricky -- what if someone comes along and uploads a partial
